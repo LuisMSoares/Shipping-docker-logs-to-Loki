@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  logapp:
+    container_name: docker-logs-to-loki
+    build: .
+    ports:
+      - "5000:5000"
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://host.docker.internal:3000/loki/api/v1/push"
+        labels: "lokiapp"
+    labels:
+      lokiapp: "docker-test-logs"
